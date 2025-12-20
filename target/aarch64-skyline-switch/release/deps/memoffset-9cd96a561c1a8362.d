@@ -1,0 +1,10 @@
+I:\Backups\Ultimate modding\novalia_balance\target\aarch64-skyline-switch\release\deps\libmemoffset-9cd96a561c1a8362.rmeta: C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\lib.rs C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\raw_field.rs C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\offset_of.rs C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\span_of.rs
+
+I:\Backups\Ultimate modding\novalia_balance\target\aarch64-skyline-switch\release\deps\libmemoffset-9cd96a561c1a8362.rlib: C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\lib.rs C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\raw_field.rs C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\offset_of.rs C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\span_of.rs
+
+I:\Backups\Ultimate modding\novalia_balance\target\aarch64-skyline-switch\release\deps\memoffset-9cd96a561c1a8362.d: C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\lib.rs C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\raw_field.rs C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\offset_of.rs C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\span_of.rs
+
+C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\lib.rs:
+C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\raw_field.rs:
+C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\offset_of.rs:
+C:\Users\Gamernaut\.cargo\registry\src\index.crates.io-6f17d22bba15001f\memoffset-0.6.5\src\span_of.rs:
