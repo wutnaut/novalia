@@ -9,7 +9,7 @@ use {
     smash_script::*,
     smashline::{*, Priority::*}
 };
-
+/* 
 unsafe extern "C" fn wolf_game_attackhi4(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 4.0);
     if macros::is_excute(agent) {
@@ -42,7 +42,7 @@ unsafe extern "C" fn wolf_sound_attackhi4(agent: &mut L2CAgentBase) {
         macros::PLAY_SE(agent, Hash40::new("se_wolf_attackhard_s01"));
     }
 }
-
+*/
 unsafe extern "C" fn wolf_game_attackairn(agent: &mut L2CAgentBase) {
     let boma = agent.module_accessor;
     frame(agent.lua_state_agent, 1.0);

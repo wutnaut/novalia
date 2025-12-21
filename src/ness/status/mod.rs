@@ -1,7 +1,7 @@
 use super::*;
 
-mod specials;
+//mod specials;
 
 pub fn install() {
-    specials::install();
+    //specials::install();
 }

@@ -1,16 +1,6 @@
-use {
-    smash::{
-        lua2cpp::*,
-        phx::*,
-        app::{sv_animcmd::*, lua_bind::*, *},
-        lib::{lua_const::*, L2CValue, L2CAgent},
-        hash40
-    },
-    smash_script::*,
-    smashline::{*, Priority::*}
-};
+use super::*;
 
-static mut nairboosts: [i32; 8] = [1; 8];
+//pub static mut nairboosts: [i32; 8] = [1; 8];
 
 use skyline::hooks::{getRegionAddress, Region};
 

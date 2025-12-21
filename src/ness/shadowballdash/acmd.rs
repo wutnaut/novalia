@@ -15,6 +15,10 @@ unsafe extern "C" fn shadowball_game_regular(agent: &mut L2CAgentBase) {
         macros::ATTACK(agent, 0, 0, Hash40::new("top"), 6.0, 361, 110, 0, 55, 3.0, 0.0, 0.0, 0.0, None, None, None, 0.6, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_SPEED, false, -2, 0.0, 0, true, true, false, false, false, *COLLISION_SITUATION_MASK_G, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_purple"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_BOMB, *ATTACK_REGION_NONE);
         macros::ATTACK(agent, 1, 0, Hash40::new("top"), 6.0, 270, 70, 0, 45, 3.0, 0.0, 0.0, 0.0, None, None, None, 0.6, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_SPEED, false, -2, 0.0, 0, true, true, false, false, false, *COLLISION_SITUATION_MASK_A, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_purple"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_BOMB, *ATTACK_REGION_NONE);
     }
+    frame(agent.lua_state_agent, 50.0);
+    if macros::is_excute(agent) {
+        AttackModule::clear_all(agent.module_accessor);
+    }
 }
 
 unsafe extern "C" fn shadowball_effect_regular(agent: &mut L2CAgentBase) {
@@ -29,6 +33,12 @@ unsafe extern "C" fn shadowball_effect_regular(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
         macros::EFFECT_FOLLOW(agent, Hash40::new("sys_hit_dead"), Hash40::new("top"), 0, 0, 0, 0, 0, 0, 0.7, true);
         macros::LAST_EFFECT_SET_COLOR(agent, 0.58, 0.0, 0.82);
+    }
+    frame(agent.lua_state_agent, 50.0);
+    if macros::is_excute(agent) {
+        macros::EFFECT_OFF_KIND(agent, Hash40::new("mewtwo_shadowball"), false, true);
+        macros::EFFECT_OFF_KIND(agent, Hash40::new("mewtwo_shadowball_tail"), false, true);
+        macros::EFFECT_OFF_KIND(agent, Hash40::new("sys_hit_dead"), false, true);
     }
 }
 
