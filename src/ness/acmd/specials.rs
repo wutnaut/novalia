@@ -1,4 +1,5 @@
 use super::*;
+use crate::EFFECT_FLW_POS_UNSYNC_VIS;
 
 //---------------SPECIALS--------------------
 
@@ -61,9 +62,55 @@ unsafe extern "C" fn skullkid_game_specialairs(agent: &mut L2CAgentBase) {
     }
 }
 
+// GROUND HI SPECIAL
+unsafe extern "C" fn skullkid_game_specialhi(agent: &mut L2CAgentBase) {
+    if macros::is_excute(agent) {
+        GroundModule::select_cliff_hangdata(agent.module_accessor, *FIGHTER_MEWTWO_CLIFF_HANG_DATA_SPECIAL_HI as u32);
+        notify_event_msc_cmd!(agent, Hash40::new_raw(0x2127e37c07), *GROUND_CLIFF_CHECK_KIND_ALWAYS_BOTH_SIDES);
+    }
+}
+
+unsafe extern "C" fn skullkid_effect_specialhi(agent: &mut L2CAgentBase) {
+    if macros::is_excute(agent) {
+        macros::FLASH(agent, 1, 1, 1, 1);
+        //macros::EFFECT_FLW_POS_UNSYNC_VIS(agent, Hash40::new("mewtwo_teleport_end"), Hash40::new("top"), 0, 8.5, 0, 0, 0, 0, 0.9, false);
+        macros::EFFECT_FOLLOW(agent, Hash40::new("mewtwo_teleport_end"), Hash40::new("top"), 0, 8.5, 0, 0, 0, 0, 0.9, false);
+    }
+    frame(agent.lua_state_agent, 1.0);
+    if macros::is_excute(agent) {
+        macros::LANDING_EFFECT(agent, Hash40::new("sys_down_smoke"), Hash40::new("top"), 0, 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, 0, false);
+    }
+    for _ in 0..4 {
+    if macros::is_excute(agent) {
+        macros::FLASH(agent, 0.8, 0.2, 1, 0.5);
+    }
+    wait(agent.lua_state_agent, 2.0);
+    if macros::is_excute(agent) {
+        macros::FLASH(agent, 1, 1, 1, 0.8);
+    }
+    wait(agent.lua_state_agent, 1.0);
+}
+if macros::is_excute(agent) {
+    macros::COL_NORMAL(agent);
+}
+}
+
+unsafe extern "C" fn skullkid_sound_specialhi(agent: &mut L2CAgentBase) {
+    frame(agent.lua_state_agent, 1.0);
+    if macros::is_excute(agent) {
+        macros::PLAY_SE(agent, Hash40::new("se_mewtwo_special_h02"));
+    }
+}
+
 pub fn install() {
     Agent::new("ness")
         .game_acmd("game_specials", skullkid_game_specials, Default)
         .game_acmd("game_specialairs", skullkid_game_specialairs, Default)
+        .game_acmd("game_specialhi", skullkid_game_specialhi, Default)
+        .effect_acmd("effect_specialhi", skullkid_effect_specialhi, Default)
+        .sound_acmd("sound_specialhi", skullkid_sound_specialhi, Default)
+        .game_acmd("game_specialairhi", skullkid_game_specialhi, Default)
+        .effect_acmd("effect_specialairhi", skullkid_effect_specialhi, Default)
+        .sound_acmd("sound_specialairhi", skullkid_sound_specialhi, Default)
         .install();
 }
