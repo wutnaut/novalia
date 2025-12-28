@@ -102,15 +102,53 @@ unsafe extern "C" fn skullkid_sound_specialhi(agent: &mut L2CAgentBase) {
     }
 }
 
+// GROUND LOW SPECIAL
+unsafe extern "C" fn skullkid_game_speciallwhold(agent: &mut L2CAgentBase) {
+    let lua_state = agent.lua_state_agent;
+	let boma = agent.module_accessor;
+    let color = WorkModule::get_int(agent.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
+    if color == 6 || color == 7 {
+        for _ in 0..999 {
+            if macros::is_excute(agent) {
+                macros::ATTACK(agent, 0, 0, Hash40::new("top"), 5.0, 55, 96, 0, 32, 2.5, 0.0, 6.5, 2.0, None, None, None, 0.5, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, 0, 0.0, 0, false, false, false, false, false, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_purple"), *ATTACK_SOUND_LEVEL_S, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_ENERGY);
+                macros::ATTACK(agent, 1, 0, Hash40::new("top"), 5.0, 55, 96, 0, 32, 8.9, 0.0, 6.7, 0.0, None, None, None, 0.5, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, false, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_purple"), *ATTACK_SOUND_LEVEL_S, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_ENERGY);
+                macros::ATK_SET_SHIELD_SETOFF_MUL(agent, 0, 0.36);
+                macros::ATK_SET_SHIELD_SETOFF_MUL(agent, 1, 0.36);
+            }
+            wait(lua_state, 5.0);
+            if macros::is_excute(agent) {
+                AttackModule::clear_all(boma);
+            }
+            wait(lua_state, 14.0);
+        }
+    } else {
+        for _ in 0..999 {
+            if macros::is_excute(agent) {
+                macros::ATTACK(agent, 0, 0, Hash40::new("top"), 5.0, 55, 96, 0, 32, 2.5, 0.0, 6.5, 2.0, None, None, None, 0.5, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, 0, 0.0, 0, false, false, false, false, false, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_elec"), *ATTACK_SOUND_LEVEL_S, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_ENERGY);
+                macros::ATTACK(agent, 1, 0, Hash40::new("top"), 5.0, 55, 96, 0, 32, 8.9, 0.0, 6.7, 0.0, None, None, None, 0.5, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, false, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_elec"), *ATTACK_SOUND_LEVEL_S, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_ENERGY);
+                macros::ATK_SET_SHIELD_SETOFF_MUL(agent, 0, 0.36);
+                macros::ATK_SET_SHIELD_SETOFF_MUL(agent, 1, 0.36);
+            }
+            wait(lua_state, 5.0);
+            if macros::is_excute(agent) {
+                AttackModule::clear_all(boma);
+            }
+            wait(lua_state, 14.0);
+        }
+    }
+}
+
 pub fn install() {
     Agent::new("ness")
         .game_acmd("game_specials", skullkid_game_specials, Default)
         .game_acmd("game_specialairs", skullkid_game_specialairs, Default)
-        .game_acmd("game_specialhi", skullkid_game_specialhi, Default)
-        .effect_acmd("effect_specialhi", skullkid_effect_specialhi, Default)
-        .sound_acmd("sound_specialhi", skullkid_sound_specialhi, Default)
-        .game_acmd("game_specialairhi", skullkid_game_specialhi, Default)
-        .effect_acmd("effect_specialairhi", skullkid_effect_specialhi, Default)
-        .sound_acmd("sound_specialairhi", skullkid_sound_specialhi, Default)
+        //.game_acmd("game_specialhi", skullkid_game_specialhi, Default)
+        //.effect_acmd("effect_specialhi", skullkid_effect_specialhi, Default)
+        //.sound_acmd("sound_specialhi", skullkid_sound_specialhi, Default)
+        //.game_acmd("game_specialairhi", skullkid_game_specialhi, Default)
+        //.effect_acmd("effect_specialairhi", skullkid_effect_specialhi, Default)
+        //.sound_acmd("sound_specialairhi", skullkid_sound_specialhi, Default)
+        .game_acmd("game_speciallwhold", skullkid_game_speciallwhold, Default)
+        .game_acmd("game_specialairlwhold", skullkid_game_speciallwhold, Default)
         .install();
 }
