@@ -102,10 +102,10 @@ unsafe extern "C" fn skullkid_frame(fighter: &mut L2CFighterCommon) {
                 nairboosts[entry_id] = 1;
                 //allow_nairboost[entry_id] = true;
             }
-            if MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpaerialf") ||
-            MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpaerialb") {
-                KineticModule::enable_energy(fighter.module_accessor, *FIGHTER_KINETIC_ENERGY_ID_GRAVITY);
-            }
+            //if MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpaerialf") ||
+            //MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpaerialb") {
+            //    KineticModule::enable_energy(fighter.module_accessor, *FIGHTER_KINETIC_ENERGY_ID_GRAVITY);
+            //}
             //if MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpsquat") ||
             //MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpfront") ||
             //MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpfrontmini") ||
