@@ -16,9 +16,9 @@ pub unsafe fn int_param_accessor_hook(boma: u64, param_type: u64, param_hash: u6
     if param_hash == 0 {
         if fighter_kind == FIGHTER_KIND_NESS {
             if color == 6 || color == 7 {
-                //if param_type == hash40("jump_count_max") {
-                //    return 2; //2
-                //} 
+                if param_type == hash40("jump_count_max") {
+                    return 3; //2
+                } 
             } 
         }
     }
@@ -44,6 +44,14 @@ pub unsafe fn float_param_accessor_hook(boma: u64, param_type: u64, param_hash: 
                     return 0.08; //0.07161
                 } else if param_type == hash40("run_accel_add") {
                     return 0.05; //0.044
+                } else if param_type == hash40("jump_speed_x") {
+                    return 0.9; //1.0
+                } else if param_type == hash40("jump_speed_x_mul") {
+                    return 0.7; //0.8
+                } else if param_type == hash40("jump_speed_x_max") {
+                    return 1.2; //1.3
+                } else if param_type == hash40("jump_aerial_speed_x_mul") {
+                    return 0.75; //0.8
                 } else if param_type == hash40("jump_initial_y") {
                     return 16.964; //18.964
                 } else if param_type == hash40("jump_y") {
@@ -94,6 +102,10 @@ unsafe extern "C" fn skullkid_frame(fighter: &mut L2CFighterCommon) {
                 nairboosts[entry_id] = 1;
                 //allow_nairboost[entry_id] = true;
             }
+            if MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpaerialf") ||
+            MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpaerialb") {
+                KineticModule::enable_energy(fighter.module_accessor, *FIGHTER_KINETIC_ENERGY_ID_GRAVITY);
+            }
             //if MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpsquat") ||
             //MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpfront") ||
             //MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpfrontmini") ||
@@ -116,6 +128,47 @@ unsafe extern "C" fn skullkid_frame(fighter: &mut L2CFighterCommon) {
     }
 }
 
+unsafe extern "C" fn skullkid_status_JumpAerial_main(fighter: &mut L2CFighterCommon) -> L2CValue {
+    let color = WorkModule::get_int(fighter.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
+    if color == 6 || color == 7 {} else {
+        MotionModule::set_trans_move_speed_no_scale(fighter.module_accessor, true);
+    }   
+    fighter.status_JumpAerial()
+}
+
+unsafe extern "C" fn skullkid_status_JumpAerial_Pre(fighter: &mut L2CFighterCommon) -> L2CValue {
+    //let ret = fighter.status_pre_JumpAerial_sub();
+    //if ret.get_bool() {
+    //    return ret;
+    //}
+        
+    StatusModule::init_settings(
+        fighter.module_accessor,
+        smash::app::SituationKind(*SITUATION_KIND_AIR),
+        *FIGHTER_KINETIC_TYPE_JUMP_AERIAL, //_MOTION,  
+        *GROUND_CORRECT_KIND_AIR as u32,
+        smash::app::GroundCliffCheckKind(*GROUND_CLIFF_CHECK_KIND_ON_DROP_BOTH_SIDES),
+        true,
+        *FIGHTER_STATUS_WORK_KEEP_FLAG_NONE_FLAG,
+        *FIGHTER_STATUS_WORK_KEEP_FLAG_NONE_INT,
+        *FIGHTER_STATUS_WORK_KEEP_FLAG_NONE_FLOAT,
+        0
+    );
+    FighterStatusModuleImpl::set_fighter_status_data(
+        fighter.module_accessor,
+        false, 
+        *FIGHTER_TREADED_KIND_ENABLE,
+        true,  
+        false, 
+        true,  
+        0,
+        *FIGHTER_STATUS_ATTR_INTO_DOOR as u32,
+        0,
+        0
+    );
+    return 0.into();
+}
+
 pub fn install() {
     unsafe {
         let text_ptr = getRegionAddress(Region::Text) as *const u8;
@@ -130,11 +183,13 @@ pub fn install() {
     }
 
     skyline::install_hooks!(
-        //int_param_accessor_hook,
+        int_param_accessor_hook,
         float_param_accessor_hook
     );
 
     Agent::new("ness")
         .on_line(Main, skullkid_frame)
+        .status(Main, *FIGHTER_STATUS_KIND_JUMP_AERIAL, skullkid_status_JumpAerial_main)
+        .status(Main, *FIGHTER_STATUS_KIND_JUMP_AERIAL, skullkid_status_JumpAerial_Pre)
         .install();
 }

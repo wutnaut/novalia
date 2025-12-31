@@ -5,6 +5,7 @@ pub mod frame;
 pub mod status;
 pub mod shadowball;
 pub mod shadowballdash;
+pub mod pkthunder;
 
 pub static mut FIGHTER_NESS_GENERATE_ARTICLE_SHADOWBALL :i32 = 0x8;
 pub static mut FIGHTER_NESS_GENERATE_ARTICLE_SHADOWBALLDASH :i32 = 0x8;
@@ -25,4 +26,5 @@ pub fn install() {
     status::install();
     shadowball::install();
     shadowballdash::install();
+    pkthunder::install();
 }
