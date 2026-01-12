@@ -240,23 +240,37 @@ unsafe extern "C" fn skullkid_game_attacklw4(agent: &mut L2CAgentBase) {
             ArticleModule::remove_exist(boma, *FIGHTER_NESS_GENERATE_ARTICLE_YOYO, smash::app::ArticleOperationTarget(*ARTICLE_OPE_TARGET_ALL));
 		    ArticleModule::remove_exist(boma, *FIGHTER_NESS_GENERATE_ARTICLE_YOYO_HEAD, smash::app::ArticleOperationTarget(*ARTICLE_OPE_TARGET_ALL));
         }
-        frame(lua_state, 6.0);
+        frame(agent.lua_state_agent, 6.0);
         if macros::is_excute(agent) {
-            WorkModule::on_flag(boma, *FIGHTER_STATUS_ATTACK_FLAG_START_SMASH_HOLD);
+            WorkModule::on_flag(agent.module_accessor, *FIGHTER_STATUS_ATTACK_FLAG_START_SMASH_HOLD);
         }
-        frame(lua_state, 20.0);
-        macros::FT_MOTION_RATE(agent, 0.4);
+        frame(agent.lua_state_agent, 20.0);
         if macros::is_excute(agent) {
-            macros::ATTACK(agent, 0, 0, Hash40::new("top"), 11.0, 45, 65, 0, 76, 5.5, 0.0, 3.9, 6.7, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, 5, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_paralyze"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_NONE);
+            macros::ATTACK(agent, 0, 0, Hash40::new("top"), 5.0, 70, 0, 0, 30, 3.5, 0.0, 3.0, 8.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, -10, 0.0, 8, false, false, false, false, true, *COLLISION_SITUATION_MASK_G, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_purple"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_PSI);
+            macros::ATTACK(agent, 1, 0, Hash40::new("top"), 5.0, 160, 50, 0, 30, 3.5, 0.0, 3.0, 8.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, -10, 0.0, 8, false, false, false, false, true, *COLLISION_SITUATION_MASK_A, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_purple"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_PSI);
         }
-        frame(lua_state, 50.0);
-        macros::FT_MOTION_RATE(agent, 2.5);
+        wait(agent.lua_state_agent, 3.0);
         if macros::is_excute(agent) {
-            AttackModule::clear_all(boma);
-            //AttackModule::set_target_category(boma, 0, *COLLISION_CATEGORY_MASK_NO_IF as u32);
+            AttackModule::set_target_category(agent.module_accessor, 0, *COLLISION_CATEGORY_MASK_NO_IF as u32);
         }
-        frame(lua_state, 54.0);
-        macros::FT_MOTION_RATE(agent, 1.0);
+        frame(agent.lua_state_agent, 29.0);
+        if macros::is_excute(agent) {
+            macros::ATTACK(agent, 0, 0, Hash40::new("top"), 6.0, 70, 0, 0, 30, 4.0, 3.3, 3.5, 11.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, -8, 0.0, 9, false, false, false, false, true, *COLLISION_SITUATION_MASK_G, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_purple"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_PSI);
+            macros::ATTACK(agent, 1, 0, Hash40::new("top"), 6.0, 90, 50, 0, 30, 4.0, 3.3, 3.5, 11.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, -8, 0.0, 9, false, false, false, false, true, *COLLISION_SITUATION_MASK_A, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_purple"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_PSI);
+        }
+        wait(agent.lua_state_agent, 3.0);
+        if macros::is_excute(agent) {
+            AttackModule::set_target_category(agent.module_accessor, 0, *COLLISION_CATEGORY_MASK_NO_IF as u32);
+        }
+        frame(agent.lua_state_agent, 39.0);
+        if macros::is_excute(agent) {
+            AttackModule::clear(agent.module_accessor, 1, false);
+            macros::ATTACK(agent, 0, 0, Hash40::new("top"), 12.0, 80, 40, 0, 30, 4.5, -5.6, 3.6, 20.5, None, None, None, 0.7, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, -6, 0.0, 9, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_paralyze"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_PSI);
+        }
+        wait(agent.lua_state_agent, 7.0);
+        if macros::is_excute(agent) {
+            AttackModule::clear_all(agent.module_accessor);
+        }
     } else {
         frame(lua_state, 3.0);
         if macros::is_excute(agent) {
@@ -285,28 +299,40 @@ unsafe extern "C" fn skullkid_effect_attacklw4(agent: &mut L2CAgentBase) {
 	let boma = agent.module_accessor;
     let color = WorkModule::get_int(agent.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
     if color == 6 || color == 7 {
-        frame(lua_state, 3.0);
+        frame(agent.lua_state_agent, 3.0);
         if macros::is_excute(agent) {
             macros::EFFECT(agent, Hash40::new("sys_smash_flash"), Hash40::new("havel"), 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, true);
         }
-        frame(lua_state, 8.0);
+        frame(agent.lua_state_agent, 8.0);
         if macros::is_excute(agent) {
             macros::EFFECT_FOLLOW_FLIP(agent, Hash40::new("ness_psi_hold"), Hash40::new("ness_psi_hold"), Hash40::new("havel"), 0.5, 0.5, 1.3, 0, 0, 0, 1, true, *EF_FLIP_YZ);
         }
-        frame(lua_state, 20.0);
+        frame(agent.lua_state_agent, 20.0);
         if macros::is_excute(agent) {
             macros::EFFECT_OFF_KIND(agent, Hash40::new("ness_psi_hold"), false, false);
-            macros::EFFECT_FOLLOW_FLIP(agent, Hash40::new("mewtwo_pk_attack_c"), Hash40::new("mewtwo_pk_attack_c"), Hash40::new("top"), 0, 3.0, 6.7, 0, 0, 0, 0.55, true, *EF_FLIP_YZ);
-            macros::LAST_EFFECT_SET_RATE(agent, 0.5);
+            macros::EFFECT_FOLLOW_FLIP(agent, Hash40::new("mewtwo_pk_attack_c"), Hash40::new("mewtwo_pk_attack_c"), Hash40::new("top"), 0, 2.5, 9, 0, 0, 0, 0.35, true, *EF_FLIP_YZ);
         }
-        frame(lua_state, 21.0);
+        frame(agent.lua_state_agent, 21.0);
         if macros::is_excute(agent) {
             macros::LANDING_EFFECT(agent, Hash40::new("sys_dash_smoke"), Hash40::new("top"), -3, 0, 0, 0, 0, 0, 0.7, 2, 2, 2, 0, 0, 0, false);
             macros::LAST_EFFECT_SET_RATE(agent, 1.3);
         }
-        frame(lua_state, 26.0);
+        frame(agent.lua_state_agent, 29.0);
         if macros::is_excute(agent) {
-            macros::EFFECT_OFF_KIND(agent, Hash40::new("ness_pkt_hold"), false, false);
+            macros::EFFECT_FOLLOW_FLIP(agent, Hash40::new("mewtwo_pk_attack_c"), Hash40::new("mewtwo_pk_attack_c"), Hash40::new("top"), 0, 2.5, 10.5, 0, 0, 0, 0.4, true, *EF_FLIP_YZ);
+        }
+        frame(agent.lua_state_agent, 30.0);
+        if macros::is_excute(agent) {
+            macros::LANDING_EFFECT(agent, Hash40::new("sys_dash_smoke"), Hash40::new("top"), -3, 0, 0, 0, 0, 0, 0.7, 2, 2, 2, 0, 0, 0, false);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.3);
+        }
+        frame(agent.lua_state_agent, 39.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW_FLIP(agent, Hash40::new("mewtwo_pk_attack_c"), Hash40::new("mewtwo_pk_attack_c"), Hash40::new("top"), 0, 2.5, 20, 0, 0, 0, 0.5, true, *EF_FLIP_YZ);
+        }
+        frame(agent.lua_state_agent, 40.0);
+        if macros::is_excute(agent) {
+            macros::LANDING_EFFECT(agent, Hash40::new("sys_dash_smoke"), Hash40::new("top"), -3, 0, 0, 0, 0, 0, 1, 2, 2, 2, 0, 0, 0, false);
         }
     } else {
         frame(agent.lua_state_agent, 1.0);

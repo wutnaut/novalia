@@ -64,7 +64,10 @@ unsafe extern "C" fn skullkid_effect_jumpaerial(agent: &mut L2CAgentBase) {
 
 unsafe extern "C" fn skullkid_status_JumpAerial_main(fighter: &mut L2CFighterCommon) -> L2CValue {
     let color = WorkModule::get_int(fighter.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
-    if color == 6 || color == 7 {} else {
+    if color == 6 || color == 7 {
+        
+        //MotionModule::set_trans_move_speed_no_scale(fighter.module_accessor, true);
+    } else {
         MotionModule::set_trans_move_speed_no_scale(fighter.module_accessor, true);
     }   
     fighter.status_JumpAerial()
@@ -127,11 +130,19 @@ unsafe extern "C" fn skullkid_status_JumpAerial_Pre(fighter: &mut L2CFighterComm
     }
 }
 
+unsafe extern "C" fn skullkid_status_JumpAerial_Exit(fighter: &mut L2CFighterCommon) -> L2CValue {
+    0.into()
+}
 
 unsafe extern "C" fn skullkid_attackair_main(fighter: &mut L2CFighterCommon) -> L2CValue {
     let color = WorkModule::get_int(fighter.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
+    let jumps = WorkModule::get_int(fighter.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_JUMP_COUNT);
     fighter.sub_attack_air_common(false.into());
-    if color == 6 || color == 7 {} else {
+    if color == 6 || color == 7 {
+        if jumps == 0 &&ControlModule::check_button_on(fighter.module_accessor, *CONTROL_PAD_BUTTON_JUMP) {
+            EffectModule::req_follow(fighter.module_accessor, Hash40::new("mewtwo_final_aura"), Hash40::new("hip"), &Vector3f{x: 0.0, y: 0.0, z: 0.0}, &Vector3f{x: 0.0, y: 0.0, z: 0.0}, 1.0, true, 0, 0, 0, 0, 0, false, false);
+        }
+    } else {
         MotionModule::set_trans_move_speed_no_scale(fighter.module_accessor, true);
     }
     fighter.sub_shift_status_main(L2CValue::Ptr(skullkid_attackair_main_loop as *const () as _));
@@ -151,6 +162,12 @@ unsafe extern "C" fn skullkid_attackair_main_loop(fighter: &mut L2CFighterCommon
     return return_value.into();
 }
 
+unsafe extern "C" fn skullkid_attackair_exit(fighter: &mut L2CFighterCommon) -> L2CValue {
+    EffectModule::kill_kind(fighter.module_accessor, Hash40::new("mewtwo_final_aura"), false, true);
+    fighter.sub_attack_air_inherit_jump_aerial_motion_uniq_process_exit();
+    0.into()
+}
+
 unsafe extern "C" fn empty_status(fighter: &mut L2CFighterCommon) -> L2CValue {
     0.into()
 }
@@ -162,6 +179,7 @@ pub fn install() {
         .on_line(Main, skullkid_frame)
         .status(Main, *FIGHTER_STATUS_KIND_JUMP_AERIAL, skullkid_status_JumpAerial_main)
         .status(Pre, *FIGHTER_STATUS_KIND_JUMP_AERIAL, skullkid_status_JumpAerial_Pre)
+        .status(Exit, *FIGHTER_STATUS_KIND_JUMP_AERIAL, skullkid_status_JumpAerial_Exit)
 
         .effect_acmd("effect_jumpaerialfront", skullkid_effect_jumpaerial, Default)
         .effect_acmd("effect_jumpaerialback", skullkid_effect_jumpaerial, Default)
@@ -171,6 +189,8 @@ pub fn install() {
         //.status(Exec, *FIGHTER_STATUS_KIND_ATTACK_AIR, empty_status)
         .status(Main, *FIGHTER_STATUS_KIND_ATTACK_AIR, skullkid_attackair_main)
         //.status(Exit, *FIGHTER_STATUS_KIND_ATTACK_AIR, empty_status)
+        //.status(Exit, *FIGHTER_STATUS_KIND_ATTACK_AIR, skullkid_attackair_exit)
+
 
         .install();
 }
