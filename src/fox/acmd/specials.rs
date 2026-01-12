@@ -300,10 +300,10 @@ unsafe extern "C" fn slippy_effect_specialhilanding(agent: &mut L2CAgentBase) {
 unsafe extern "C" fn slippy_game_speciallwstart(agent: &mut L2CAgentBase) {
     let lua_state = agent.lua_state_agent;
 	let boma = agent.module_accessor;
-    let slippy_speed_x = KineticModule::get_sum_speed_x(boma, *KINETIC_ENERGY_RESERVE_ATTRIBUTE_MAIN);
+    let slippy_speed_x = KineticModule::get_sum_speed_x(boma, *KINETIC_ENERGY_RESERVE_ATTRIBUTE_MAIN).abs();
     let color = WorkModule::get_int(agent.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
     if color == 7 {
-        frame(agent.lua_state_agent, 3.0);
+        frame(agent.lua_state_agent, 2.0);
         if macros::is_excute(agent) {
             KineticModule::clear_speed_all(agent.module_accessor);
         }
@@ -311,7 +311,7 @@ unsafe extern "C" fn slippy_game_speciallwstart(agent: &mut L2CAgentBase) {
         if macros::is_excute(agent) {
             macros::ATTACK(agent, 0, 0, Hash40::new("top"), 2.0, 361, 32, 0, 66, 7.5, 0.0, 6.5, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_G, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_elec"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_ELEC, *ATTACK_REGION_ENERGY);
             macros::ATTACK(agent, 1, 0, Hash40::new("top"), 2.0, 361, 45, 0, 66, 7.5, 0.0, 6.5, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_A, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_elec"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_ELEC, *ATTACK_REGION_ENERGY);
-            KineticModule::add_speed(agent.module_accessor, &Vector3f{ x: 0.0, y: slippy_speed_x * 2.0, z: 0.0 });
+            KineticModule::add_speed(agent.module_accessor, &Vector3f{ x: 0.0, y: slippy_speed_x * 3.0, z: 0.0 });
         }
     } else {
         frame(agent.lua_state_agent, 3.0);
@@ -450,19 +450,19 @@ pub fn install() {
         //.effect_acmd("effect_specialairhi", effect_specialairhi, Default)
         //.sound_acmd("sound_specialairhi", sound_specialairhi, Default)
         .game_acmd("game_speciallwstart", slippy_game_speciallwstart, Default)
-        .effect_acmd("effect_speciallwstart", slippy_effect_speciallwstart, Default)
-        .effect_acmd("effect_speciallwloop", slippy_effect_speciallwloop, Default)
-        .effect_acmd("effect_speciallwhit", slippy_effect_speciallwhit, Default)
+        //.effect_acmd("effect_speciallwstart", slippy_effect_speciallwstart, Default)
+        //.effect_acmd("effect_speciallwloop", slippy_effect_speciallwloop, Default)
+        //.effect_acmd("effect_speciallwhit", slippy_effect_speciallwhit, Default)
         .game_acmd("game_specialairlwstart", slippy_game_speciallwstart, Default)
-        .effect_acmd("effect_specialairlwstart", slippy_effect_speciallwstart, Default)
-        .effect_acmd("effect_specialairlwloop", slippy_effect_speciallwloop, Default)
+        //.effect_acmd("effect_specialairlwstart", slippy_effect_speciallwstart, Default)
+        //.effect_acmd("effect_specialairlwloop", slippy_effect_speciallwloop, Default)
         
-        .effect_acmd("effect_specialhi", slippy_effect_specialhi, Default)
-        .effect_acmd("effect_specialhibound", slippy_effect_specialhibound, Default)
-        .effect_acmd("effect_specialhifall", slippy_effect_specialhifall, Default)
-        .effect_acmd("effect_specialhihold", slippy_effect_specialhihold, Default)
-        .effect_acmd("effect_specialhiholdair", slippy_effect_specialhiholdair, Default)
-        .effect_acmd("effect_specialhilanding", slippy_effect_specialhilanding, Default)
+        //.effect_acmd("effect_specialhi", slippy_effect_specialhi, Default)
+        //.effect_acmd("effect_specialhibound", slippy_effect_specialhibound, Default)
+        //.effect_acmd("effect_specialhifall", slippy_effect_specialhifall, Default)
+        //.effect_acmd("effect_specialhihold", slippy_effect_specialhihold, Default)
+        //.effect_acmd("effect_specialhiholdair", slippy_effect_specialhiholdair, Default)
+        //.effect_acmd("effect_specialhilanding", slippy_effect_specialhilanding, Default)
 
         //.game_acmd("game_specialairlwhold", game_specialairlwhold, Default)
         .install();
