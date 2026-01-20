@@ -137,15 +137,15 @@ pub unsafe fn float_param_accessor_hook(boma: u64, param_type: u64, param_hash: 
                 } else if param_type == hash40("run_accel_mul") {
                     return 0.1; //0.12221
                 } else if param_type == hash40("run_accel_add") {
-                    return 0.044; //0.044
+                    return 0.04; //0.044
                 } else if param_type == hash40("jump_speed_x") {
-                    return 2.5; //0.68
+                    return 3.0; //0.68
                 } else if param_type == hash40("jump_speed_x_mul") {
                     return 3.0; //0.83
                 } else if param_type == hash40("jump_speed_x_max") {
                     return 3.0; //1.7
                 } else if param_type == hash40("jump_aerial_speed_x_mul") {
-                    return 4.0; //0.8
+                    return 1.0; //0.8
                 } else if param_type == hash40("jump_initial_y") {
                     return 16.964; //19.25
                 } else if param_type == hash40("jump_y") {
@@ -159,13 +159,13 @@ pub unsafe fn float_param_accessor_hook(boma: u64, param_type: u64, param_hash: 
                 } else if param_type == hash40("air_speed_y_stable") {
                     return 1.8; //2.1
                 } else if param_type == hash40("air_accel_x_mul") {
-                    return 0.08; //0.08
+                    return 0.05; //0.08
                 } else if param_type == hash40("air_accel_x_add") {
                     return 0.01; //0.01
                 } else if param_type == hash40("air_brake_x") {
                     return 0.015; //0.015
                 } else if param_type == hash40("air_speed_x_stable") {
-                    return 2.0; //1.11
+                    return 1.5; //1.11
                 }
             }
         }

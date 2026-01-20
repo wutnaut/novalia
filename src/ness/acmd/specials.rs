@@ -81,18 +81,18 @@ unsafe extern "C" fn skullkid_effect_specialhi(agent: &mut L2CAgentBase) {
         macros::LANDING_EFFECT(agent, Hash40::new("sys_down_smoke"), Hash40::new("top"), 0, 0, 0, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, 0, false);
     }
     for _ in 0..4 {
-    if macros::is_excute(agent) {
-        macros::FLASH(agent, 0.8, 0.2, 1, 0.5);
+        if macros::is_excute(agent) {
+            macros::FLASH(agent, 0.8, 0.2, 1, 0.5);
+        }
+        wait(agent.lua_state_agent, 2.0);
+        if macros::is_excute(agent) {
+            macros::FLASH(agent, 1, 1, 1, 0.8);
+        }
+        wait(agent.lua_state_agent, 1.0);
     }
-    wait(agent.lua_state_agent, 2.0);
     if macros::is_excute(agent) {
-        macros::FLASH(agent, 1, 1, 1, 0.8);
+        macros::COL_NORMAL(agent);
     }
-    wait(agent.lua_state_agent, 1.0);
-}
-if macros::is_excute(agent) {
-    macros::COL_NORMAL(agent);
-}
 }
 
 unsafe extern "C" fn skullkid_sound_specialhi(agent: &mut L2CAgentBase) {

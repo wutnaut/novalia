@@ -139,9 +139,9 @@ unsafe extern "C" fn skullkid_attackair_main(fighter: &mut L2CFighterCommon) -> 
     let jumps = WorkModule::get_int(fighter.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_JUMP_COUNT);
     fighter.sub_attack_air_common(false.into());
     if color == 6 || color == 7 {
-        if jumps == 0 &&ControlModule::check_button_on(fighter.module_accessor, *CONTROL_PAD_BUTTON_JUMP) {
-            EffectModule::req_follow(fighter.module_accessor, Hash40::new("mewtwo_final_aura"), Hash40::new("hip"), &Vector3f{x: 0.0, y: 0.0, z: 0.0}, &Vector3f{x: 0.0, y: 0.0, z: 0.0}, 1.0, true, 0, 0, 0, 0, 0, false, false);
-        }
+        //if ControlModule::check_button_on(fighter.module_accessor, *CONTROL_PAD_BUTTON_JUMP) {
+        //    EffectModule::req_follow(fighter.module_accessor, Hash40::new("mewtwo_final_aura"), Hash40::new("hip"), &Vector3f{x: 0.0, y: 0.0, z: 0.0}, &Vector3f{x: 0.0, y: 0.0, z: 0.0}, 1.0, true, 0, 0, 0, 0, 0, false, false);
+        //}
     } else {
         MotionModule::set_trans_move_speed_no_scale(fighter.module_accessor, true);
     }
@@ -150,11 +150,17 @@ unsafe extern "C" fn skullkid_attackair_main(fighter: &mut L2CFighterCommon) -> 
 }
 
 unsafe extern "C" fn skullkid_attackair_main_loop(fighter: &mut L2CFighterCommon) -> L2CValue {
+    let color = WorkModule::get_int(fighter.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
     let mut return_value = false;
     if !fighter.status_AttackAir_Main_common().get_bool() {
         fighter.sub_air_check_superleaf_fall_slowly();
         if fighter.global_table[8].get_bool() != true {
-            fighter.sub_attack_air_inherit_jump_aerial_motion_uniq_process_exec_fix_pos();
+            if color == 6 || color == 7 {
+                fighter.sub_attack_air_inherit_jump_aerial_motion_uniq_process_exec();
+                //EffectModule::req_follow(fighter.module_accessor, Hash40::new("mewtwo_final_aura"), Hash40::new("hip"), &Vector3f{x: 0.0, y: 0.0, z: 0.0}, &Vector3f{x: 0.0, y: 0.0, z: 0.0}, 1.0, true, 0, 0, 0, 0, 0, false, false);
+            } else {
+                fighter.sub_attack_air_inherit_jump_aerial_motion_uniq_process_exec_fix_pos();
+            }
         }
     } else {
         return_value = true;

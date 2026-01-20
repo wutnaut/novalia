@@ -149,7 +149,7 @@ unsafe extern "C" fn mrl_effect_attackairb(agent: &mut L2CAgentBase) {
         }
         frame(lua_state, 8.0);
         if macros::is_excute(agent) {
-            macros::EFFECT_FOLLOW_FLIP(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 1.5, 7.0, 1.5, 2.5, -20, -100, 1, true, *EF_FLIP_YZ)
+            macros::EFFECT_FOLLOW_FLIP(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 1.5, 7.0, 1.5, 2.5, 20, 100, 1, true, *EF_FLIP_PTCL_Y)
         }
     } else {
         frame(lua_state, 5.0);
