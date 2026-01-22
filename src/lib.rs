@@ -42,6 +42,7 @@ use crate::ness::FIGHTER_NESS_GENERATE_ARTICLE_SHADOWBALLDASH;
 
 use skyline::hooks::{getRegionAddress, Region}; // for param edits
 
+mod novalia;
 mod ganon;
 mod byleth_axe;
 mod zelda;
@@ -55,6 +56,7 @@ mod younglink;
 mod wolf;
 mod rosetta;
 mod fox;
+
 
 static mut INT_OFFSET : usize = 0x4e53a0;
 static mut FLOAT_OFFSET : usize = 0x4e53e0;
@@ -139,21 +141,21 @@ pub unsafe fn float_param_accessor_hook(boma: u64, param_type: u64, param_hash: 
                 } else if param_type == hash40("run_accel_add") {
                     return 0.04; //0.044
                 } else if param_type == hash40("jump_speed_x") {
-                    return 3.0; //0.68
+                    return 2.0; //0.68
                 } else if param_type == hash40("jump_speed_x_mul") {
-                    return 3.0; //0.83
+                    return 2.0; //0.83
                 } else if param_type == hash40("jump_speed_x_max") {
                     return 3.0; //1.7
                 } else if param_type == hash40("jump_aerial_speed_x_mul") {
                     return 1.0; //0.8
                 } else if param_type == hash40("jump_initial_y") {
-                    return 16.964; //19.25
+                    return 14.964; //19.25
                 } else if param_type == hash40("jump_y") {
-                    return 25.0; //35
+                    return 18.0; //35
                 } else if param_type == hash40("mini_jump_y") {
-                    return 13.65; //16.4
+                    return 11.65; //16.4
                 } else if param_type == hash40("jump_aerial_y") {
-                    return 29.0; //37
+                    return 20.0; //37
                 } else if param_type == hash40("air_accel_y") {
                     return 0.1; //0.23
                 } else if param_type == hash40("air_speed_y_stable") {
@@ -206,6 +208,7 @@ unsafe {
         float_param_accessor_hook
     );
 
+    novalia::install();
     ganon::install();
 	byleth_axe::install();
 	zelda::install();

@@ -1,17 +1,22 @@
 use super::*;
 
+//static mut rng: i32 = 0;
+
 unsafe extern "C" fn mrl_game_regular(agent: &mut L2CAgentBase) {
     let lua_state = agent.lua_state_agent;
     let boma = agent.module_accessor;
     let color = WorkModule::get_int(get_owner_boma(boma), *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
+    //let angles: [i32; 8] = [0, 30, 60, 90, 120, 150, 180, 270];
+    //let rng = smash::app::sv_math::rand(hash40("agent"), 8) as usize;
+    //let rng_angle = angles[rng] as u64;
     if color == 7 {
         if macros::is_excute(agent) {
-            macros::ATTACK(agent, 0, 0, Hash40::new("top"), 6.0, 80, 1, 0, 1, 2.4, 0.0, 0.0, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_SPEED, false, -3, 0.0, 0, true, true, false, false, false, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_coin"), *ATTACK_SOUND_LEVEL_S, *COLLISION_SOUND_ATTR_COIN, *ATTACK_REGION_NONE);
+            macros::ATTACK(agent, 0, 0, Hash40::new("top"), 6.0, 361, 100, 20, 0, 2.4, 0.0, 0.0, 0.0, None, None, None, 0.1, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_SPEED, false, 0, 0.0, 0, true, true, false, false, false, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_coin"), *ATTACK_SOUND_LEVEL_M, *COLLISION_SOUND_ATTR_COIN, *ATTACK_REGION_NONE);
             AttackModule::enable_safe_pos(agent.module_accessor);
         }
         frame(agent.lua_state_agent, 29.0);
         if macros::is_excute(agent) {
-            macros::ATTACK(agent, 0, 0, Hash40::new("top"), 5.0, 80, 1, 0, 1, 2.4, 0.0, 0.0, 0.0, None, None, None, 0.5, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_SPEED, false, -2.5, 0.0, 0, true, true, false, false, false, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_coin"), *ATTACK_SOUND_LEVEL_S, *COLLISION_SOUND_ATTR_COIN, *ATTACK_REGION_NONE);
+            macros::ATTACK(agent, 0, 0, Hash40::new("top"), 5.0, 361, 100, 20, 0, 2.4, 0.0, 0.0, 0.0, None, None, None, 0.1, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_SPEED, false, 0, 0.0, 0, true, true, false, false, false, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_coin"), *ATTACK_SOUND_LEVEL_M, *COLLISION_SOUND_ATTR_COIN, *ATTACK_REGION_NONE);
         }
     } else {
         if macros::is_excute(agent) {

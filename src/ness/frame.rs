@@ -179,8 +179,6 @@ unsafe extern "C" fn empty_status(fighter: &mut L2CFighterCommon) -> L2CValue {
 }
 
 pub fn install() {
-    
-
     Agent::new("ness")
         .on_line(Main, skullkid_frame)
         .status(Main, *FIGHTER_STATUS_KIND_JUMP_AERIAL, skullkid_status_JumpAerial_main)
