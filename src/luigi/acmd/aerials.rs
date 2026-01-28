@@ -248,6 +248,8 @@ unsafe extern "C" fn mrl_game_attackairlw(agent: &mut L2CAgentBase) {
     let boma = agent.module_accessor;
     let color = WorkModule::get_int(agent.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
     if color == 7 {
+        frame(lua_state, 1.0);
+        macros::FT_MOTION_RATE(agent, 3.0);
         frame(lua_state, 3.0);
         if macros::is_excute(agent) {
             WorkModule::on_flag(boma, *FIGHTER_STATUS_ATTACK_AIR_FLAG_ENABLE_LANDING);
@@ -303,8 +305,6 @@ unsafe extern "C" fn mrl_effect_attackairlw(agent: &mut L2CAgentBase) {
     let boma = agent.module_accessor;
     let color = WorkModule::get_int(agent.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
     if color == 7 {
-        frame(lua_state, 1.0);
-        macros::FT_MOTION_RATE(agent, 4.0);
         frame(lua_state, 3.0);
         if macros::is_excute(agent) {
             macros::EFFECT(agent, Hash40::new("sys_smash_flash"), Hash40::new("top"), -1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, true);

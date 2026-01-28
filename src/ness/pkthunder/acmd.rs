@@ -31,14 +31,24 @@ unsafe extern "C" fn skullkid_effect_move(agent: &mut L2CAgentBase) {
     }
 }
 
-/* 
+ 
 unsafe extern "C" fn skullkid_sound_move(agent: &mut L2CAgentBase) {
-    if macros::is_excute(agent) {
-        macros::SET_TAKEOUT_SE_STATUS(agent, Hash40::new("se_ness_special_h02"));
-        macros::PLAY_STATUS(agent, Hash40::new("se_ness_special_h02"));
+    let lua_state = agent.lua_state_agent;
+	let boma = agent.module_accessor;
+    let color = WorkModule::get_int(get_owner_boma(boma), *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
+    if color == 6 || color == 7 {
+        if macros::is_excute(agent) {
+            //macros::SET_TAKEOUT_SE_STATUS(agent, Hash40::new("se_ness_special_l01"));
+            macros::PLAY_STATUS(agent, Hash40::new("se_ness_special_l01"));
+        }
+    } else {
+        if macros::is_excute(agent) {
+            //SET_TAKEOUT_SE_STATUS(agent, Hash40::new("se_ness_special_h02"));
+            macros::PLAY_STATUS(agent, Hash40::new("se_ness_special_h02"));
+        }
     }
 }
-*/
+
 
 unsafe extern "C" fn skullkid_game_movechild(agent: &mut L2CAgentBase) {
     let lua_state = agent.lua_state_agent;
@@ -63,7 +73,7 @@ pub fn install() {
     Agent::new("ness_pkthunder")
         .game_acmd("game_move", skullkid_game_move, Default)
         .effect_acmd("effect_move", skullkid_effect_move, Default)
-        //.sound_acmd("sound_move", skullkid_sound_move, Default)
+        .sound_acmd("sound_move", skullkid_sound_move, Default)
         .game_acmd("game_movechild", skullkid_game_movechild, Default)
         .install();
 }

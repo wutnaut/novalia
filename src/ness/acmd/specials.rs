@@ -95,10 +95,116 @@ unsafe extern "C" fn skullkid_effect_specialhi(agent: &mut L2CAgentBase) {
     }
 }
 
-unsafe extern "C" fn skullkid_sound_specialhi(agent: &mut L2CAgentBase) {
-    frame(agent.lua_state_agent, 1.0);
-    if macros::is_excute(agent) {
-        macros::PLAY_SE(agent, Hash40::new("se_mewtwo_special_h02"));
+unsafe extern "C" fn skullkid_sound_specialhihold(agent: &mut L2CAgentBase) {
+    let color = WorkModule::get_int(agent.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
+    if color == 6 || color == 7 {
+        frame(agent.lua_state_agent, 1.0);
+        if macros::is_excute(agent) {
+            macros::PLAY_STATUS(agent, Hash40::new("se_ness_special_l01"));
+        }
+    } else {
+        frame(agent.lua_state_agent, 1.0);
+        if macros::is_excute(agent) {
+            macros::PLAY_STATUS(agent, Hash40::new("se_ness_special_h01"));
+        }
+    }
+}
+
+// AIR HI SPECIAL (PK CANONBALL)
+unsafe extern "C" fn effect_specialairhi(agent: &mut L2CAgentBase) {
+    let color = WorkModule::get_int(agent.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
+    if color == 6 || color == 7 {
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("mewtwo_final_aura"), Hash40::new("rot"), 0, 1, 6, 0, 0, 0, 1, true);
+            EffectModule::enable_sync_init_pos_last(agent.module_accessor);
+            macros::EFFECT(agent, Hash40::new("mewtwo_pk_attack_c"), Hash40::new("top"), 0, 0, 0, 0, 0, 0, 2.0, 0, 0, 0, 0, 0, 0, true);
+        }
+        for _ in 0..16 {
+            if macros::is_excute(agent) {
+                macros::BURN_COLOR(agent, 0.5, 0.2, 1, 0.9);
+            }
+            wait(agent.lua_state_agent, 1.0);
+            if macros::is_excute(agent) {
+                macros::BURN_COLOR_FRAME(agent, 1, 0.5, 0.2, 1, 0);
+                macros::BURN_COLOR_NORMAL(agent);
+                macros::FLASH(agent, 0, 0, 0.1, 0.8);
+            }
+            wait(agent.lua_state_agent, 1.0);
+            if macros::is_excute(agent) {
+                macros::FLASH_FRM(agent, 1, 0, 0, 0.1, 0);
+                macros::COL_NORMAL(agent);
+            }
+        }
+        frame(agent.lua_state_agent, 33.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_OFF_KIND(agent, Hash40::new("mewtwo_final_aura"), false, false);
+            EffectModule::enable_sync_init_pos_last(agent.module_accessor);
+            macros::EFFECT_FOLLOW(agent, Hash40::new("ness_pkt_hold"), Hash40::new("top"), 0, 6, 0, 0, 0, 0, 0.9, true);
+        }
+        if macros::is_excute(agent) {
+            macros::BURN_COLOR(agent, 0.7, 0.2, 1, 0.6);
+        }
+        wait(agent.lua_state_agent, 1.0);
+        if macros::is_excute(agent) {
+            macros::BURN_COLOR_FRAME(agent, 1, 0.7, 0.2, 1, 0);
+            macros::BURN_COLOR_NORMAL(agent);
+        }
+        wait(agent.lua_state_agent, 3.0);
+        if macros::is_excute(agent) {
+            macros::FLASH(agent, 0.8, 0.7, 1, 0.5);
+        }
+        wait(agent.lua_state_agent, 1.0);
+        if macros::is_excute(agent) {
+            macros::FLASH_FRM(agent, 1, 0.8, 0.7, 1, 0);
+            macros::COL_NORMAL(agent);
+        }
+        wait(agent.lua_state_agent, 3.0);
+    } else {
+            if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("ness_pkt_attack"), Hash40::new("rot"), 0, 1, 6, 0, 0, 0, 1, true);
+            EffectModule::enable_sync_init_pos_last(agent.module_accessor);
+            macros::EFFECT(agent, Hash40::new("ness_pkt_bomb"), Hash40::new("top"), 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, true);
+        }
+        for _ in 0..16 {
+            if macros::is_excute(agent) {
+                macros::BURN_COLOR(agent, 0.5, 0.2, 1, 0.9);
+            }
+            wait(agent.lua_state_agent, 1.0);
+            if macros::is_excute(agent) {
+                macros::BURN_COLOR_FRAME(agent, 1, 0.5, 0.2, 1, 0);
+                macros::BURN_COLOR_NORMAL(agent);
+                macros::FLASH(agent, 0, 0, 0.1, 0.8);
+            }
+            wait(agent.lua_state_agent, 1.0);
+            if macros::is_excute(agent) {
+                macros::FLASH_FRM(agent, 1, 0, 0, 0.1, 0);
+                macros::COL_NORMAL(agent);
+            }
+        }
+        frame(agent.lua_state_agent, 33.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_OFF_KIND(agent, Hash40::new("ness_pkt_attack"), false, false);
+            EffectModule::enable_sync_init_pos_last(agent.module_accessor);
+            macros::EFFECT_FOLLOW(agent, Hash40::new("ness_pkt_hold"), Hash40::new("top"), 0, 6, 0, 0, 0, 0, 0.9, true);
+        }
+        if macros::is_excute(agent) {
+            macros::BURN_COLOR(agent, 0.7, 0.2, 1, 0.6);
+        }
+        wait(agent.lua_state_agent, 1.0);
+        if macros::is_excute(agent) {
+            macros::BURN_COLOR_FRAME(agent, 1, 0.7, 0.2, 1, 0);
+            macros::BURN_COLOR_NORMAL(agent);
+        }
+        wait(agent.lua_state_agent, 3.0);
+        if macros::is_excute(agent) {
+            macros::FLASH(agent, 0.8, 0.7, 1, 0.5);
+        }
+        wait(agent.lua_state_agent, 1.0);
+        if macros::is_excute(agent) {
+            macros::FLASH_FRM(agent, 1, 0.8, 0.7, 1, 0);
+            macros::COL_NORMAL(agent);
+        }
+        wait(agent.lua_state_agent, 3.0);
     }
 }
 
@@ -144,7 +250,7 @@ pub fn install() {
         .game_acmd("game_specialairs", skullkid_game_specialairs, Default)
         //.game_acmd("game_specialhi", skullkid_game_specialhi, Default)
         //.effect_acmd("effect_specialhi", skullkid_effect_specialhi, Default)
-        //.sound_acmd("sound_specialhi", skullkid_sound_specialhi, Default)
+        .sound_acmd("sound_specialhihold", skullkid_sound_specialhihold, Default)
         //.game_acmd("game_specialairhi", skullkid_game_specialhi, Default)
         //.effect_acmd("effect_specialairhi", skullkid_effect_specialhi, Default)
         //.sound_acmd("sound_specialairhi", skullkid_sound_specialhi, Default)

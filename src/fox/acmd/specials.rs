@@ -315,12 +315,12 @@ unsafe extern "C" fn slippy_game_speciallwstart(agent: &mut L2CAgentBase) {
             //macros::ATTACK(agent, 1, 0, Hash40::new("top"), 2.0, 361, 45, 0, 66, 7.5, 0.0, 6.5, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_A, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_elec"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_ELEC, *ATTACK_REGION_ENERGY);
             macros::ATTACK(agent, 0, 0, Hash40::new("top"), 8.0, 84, 49, 0, 107, 6.5, 0.0, 7.0, -2.0, None, None, None, 0.6, 1.0, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_elec"), *ATTACK_SOUND_LEVEL_M, *COLLISION_SOUND_ATTR_ELEC, *ATTACK_REGION_ENERGY);
             AttackModule::set_add_reaction_frame_revised(boma, 0, -3.0, false);
+            CancelModule::enable_cancel(agent.module_accessor);
         }
         frame(agent.lua_state_agent, 4.0);
         if macros::is_excute(agent) {
             AttackModule::clear_all(boma);
             KineticModule::add_speed(agent.module_accessor, &Vector3f{ x: 0.0, y: slippy_speed_x * 1.75, z: 0.0 });
-            CancelModule::enable_cancel(agent.module_accessor);
         }
     } else {
         frame(agent.lua_state_agent, 3.0);

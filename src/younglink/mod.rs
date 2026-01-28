@@ -107,6 +107,35 @@ unsafe extern "C" fn ylink_sound_speciallw(agent: &mut L2CAgentBase) {
     macros::STOP_SE(agent, Hash40::new("se_item_beetle_fly"));
 }
 
+unsafe extern "C" fn ylink_game_attacks4(agent: &mut L2CAgentBase) {
+    let lua_state = agent.lua_state_agent;
+    let boma = agent.module_accessor;
+    frame(lua_state, 6.0);
+    macros::FT_MOTION_RATE_RANGE(agent, 6.0, 14.0, 7.0);
+    if macros::is_excute(agent) {
+        WorkModule::on_flag(boma, *FIGHTER_STATUS_ATTACK_FLAG_START_SMASH_HOLD);
+    }
+    frame(lua_state, 7.0);
+    if macros::is_excute(agent) {
+        if ItemModule::is_attach_item(boma, smash::app::ItemKind(*ITEM_KIND_USAGIHAT)) {
+            KineticModule::add_speed(agent.module_accessor, &Vector3f{ x: 2.0, y: 0.0, z: 0.0 });
+        }
+    }
+    frame(lua_state, 14.0);
+    macros::FT_MOTION_RATE(agent, 2.0);
+    if macros::is_excute(agent) {
+        macros::ATTACK(agent, 0, 0, Hash40::new("shoulderl"), 14.0, 48, 110, 0, 33, 3.0, 0.0, 0.0, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 10, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
+        macros::ATTACK(agent, 1, 0, Hash40::new("sword"), 14.0, 48, 110, 0, 33, 3.0, 1.0, 0.0, -1.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 10, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
+        macros::ATTACK(agent, 2, 0, Hash40::new("sword"), 14.0, 48, 110, 0, 33, 3.0, 6.0, 0.0, -1.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 10, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
+    }
+    frame(lua_state, 15.0);
+    macros::FT_MOTION_RATE(agent, 1.0);
+    frame(lua_state, 18.0);
+    if macros::is_excute(agent) {
+        AttackModule::clear_all(boma);
+    }
+}
+
 
 pub fn install() {
     Agent::new("younglink")
@@ -114,5 +143,6 @@ pub fn install() {
         .game_acmd("game_specialairlw", ylink_game_speciallw, Default)
         .sound_acmd("sound_speciallw", ylink_sound_speciallw, Default)
         .sound_acmd("sound_specialairlw", ylink_sound_speciallw, Default)
+        .game_acmd("game_attacks4", ylink_game_attacks4, Default)
         .install();
 }

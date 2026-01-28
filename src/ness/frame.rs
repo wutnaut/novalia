@@ -1,7 +1,5 @@
 use super::*;
 
-//pub static mut nairboosts: [i32; 8] = [1; 8];
-
 ////// fighter frames
 unsafe extern "C" fn skullkid_frame(fighter: &mut L2CFighterCommon) {
     unsafe {
@@ -11,30 +9,26 @@ unsafe extern "C" fn skullkid_frame(fighter: &mut L2CFighterCommon) {
             PostureModule::set_scale(fighter.module_accessor, 1.20, false);
             if StatusModule::situation_kind(fighter.module_accessor) == *SITUATION_KIND_GROUND {
                 nairboosts[entry_id] = 1;
-                //allow_nairboost[entry_id] = true;
             }
-            //if MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpaerialf") ||
-            //MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpaerialb") {
-            //    KineticModule::enable_energy(fighter.module_accessor, *FIGHTER_KINETIC_ENERGY_ID_GRAVITY);
-            //}
-            //if MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpsquat") ||
-            //MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpfront") ||
-            //MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpfrontmini") ||
-            //MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpback") ||
-            //MotionModule::motion_kind(fighter.module_accessor) == hash40("jumpbackmini") {
-            //    if MotionModule::frame(fighter.module_accessor) > 10.0 {
-            //        if ControlModule::check_button_on(fighter.module_accessor, *CONTROL_PAD_BUTTON_ATTACK) {
-            //            let xCtrl = ControlModule::get_stick_x(fighter.module_accessor);
-            //            let yCtrl = ControlModule::get_stick_y(fighter.module_accessor);
-            //        if xCtrl == 0.0 && yCtrl == 0.0 {
-            //            KineticModule::clear_speed_all(fighter.module_accessor);
-            //            allow_nairboost[entry_id] = true;
-            //        } else {
-            //            allow_nairboost[entry_id] = false;
-            //            }
-            //        }
-            //    }
-            //}
+            if MotionModule::motion_kind(fighter.module_accessor) == hash40("jump_squat")  ||
+            MotionModule::motion_kind(fighter.module_accessor) == hash40("jump_f") ||
+            MotionModule::motion_kind(fighter.module_accessor) == hash40("jump_f_mini") ||
+            MotionModule::motion_kind(fighter.module_accessor) == hash40("jump_b") ||
+            MotionModule::motion_kind(fighter.module_accessor) == hash40("jump_b_mini") ||
+            MotionModule::motion_kind(fighter.module_accessor) == hash40("cliff_jump_quick1") ||
+            MotionModule::motion_kind(fighter.module_accessor) == hash40("cliff_jump_quick1jr") ||
+            MotionModule::motion_kind(fighter.module_accessor) == hash40("cliff_jump_quick2") {
+                if MotionModule::frame(fighter.module_accessor) < 8.0 {
+                    earlyjump[entry_id] = true;
+                    macros::EFFECT(fighter, Hash40::new("sys_damage_purple"), Hash40::new("waist"), 0, 0, 0, 0, 0, 0, 0.5, 10, 4, 4, 0, 0, 0, false);
+                } else {
+                    earlyjump[entry_id] = false;
+                }
+            } else {
+                if !MotionModule::motion_kind(fighter.module_accessor) == hash40("attack_air_n") {
+                    earlyjump[entry_id] = false;
+                }
+            }
         }
     }
 }
@@ -42,7 +36,7 @@ unsafe extern "C" fn skullkid_frame(fighter: &mut L2CFighterCommon) {
 unsafe extern "C" fn skullkid_effect_jumpaerial(agent: &mut L2CAgentBase) {
     let color = WorkModule::get_int(agent.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
     if color == 6 || color == 7 {
-        frame(agent.lua_state_agent, 1.0);
+        /*frame(agent.lua_state_agent, 1.0);
         for _ in 0..4 {
             if macros::is_excute(agent) {
                 macros::EFFECT(agent, Hash40::new("sys_flash"), Hash40::new("waist"), 0, 0, 0, 0, 0, 0, 0.5, 10, 10, 10, 0, 0, 0, false);
@@ -50,7 +44,7 @@ unsafe extern "C" fn skullkid_effect_jumpaerial(agent: &mut L2CAgentBase) {
                 macros::LAST_EFFECT_SET_ALPHA(agent, 0.8);
             }
         wait(agent.lua_state_agent, 6.0);
-        }
+        }*/
     } else {
         frame(agent.lua_state_agent, 1.0);
         for _ in 0..4 {

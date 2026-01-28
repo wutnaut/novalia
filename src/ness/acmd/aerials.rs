@@ -233,33 +233,37 @@ unsafe extern "C" fn skullkid_game_attackairn(agent: &mut L2CAgentBase) {
         frame(agent.lua_state_agent, 1.0);
         macros::FT_MOTION_RATE(agent, 2.8);
         if macros::is_excute(agent) {
-            KineticModule::clear_speed_all(agent.module_accessor);
+            if !earlyjump[entry_id] {
+                KineticModule::clear_speed_all(agent.module_accessor);
+            }
         }
         frame(agent.lua_state_agent, 5.0);
         if macros::is_excute(agent) {
             WorkModule::on_flag(agent.module_accessor, *FIGHTER_STATUS_ATTACK_AIR_FLAG_ENABLE_LANDING);
             //if allow_nairboost[entry_id] {
-            let mut xCtrl = ControlModule::get_stick_x(agent.module_accessor);
-            let mut yCtrl = ControlModule::get_stick_y(agent.module_accessor);
-            if xCtrl != 0.0 || yCtrl != 0.0 {
-                if !ControlModule::check_button_on(agent.module_accessor, *CONTROL_PAD_BUTTON_JUMP) && nairboosts[entry_id] > 0 { 
-                    nairboosts[entry_id] = nairboosts[entry_id] - 1;
-                    if yCtrl <= 0.66 {
-                        yCtrl = 0.66;
-                    }
-                    if xCtrl > 0.66 {
-                        xCtrl = 0.66;
-                    }
-                    if PostureModule::lr(agent.module_accessor) == 1.0 {
-                        KineticModule::add_speed(agent.module_accessor, &Vector3f{ x: xCtrl * 1.1, y: yCtrl * 2.5, z: 0.0 });
-                    } else {
-                        KineticModule::add_speed(agent.module_accessor, &Vector3f{ x: xCtrl * -1.1, y: yCtrl * 2.5, z: 0.0 });
+            if !earlyjump[entry_id] {
+                let mut xCtrl = ControlModule::get_stick_x(agent.module_accessor);
+                let mut yCtrl = ControlModule::get_stick_y(agent.module_accessor);
+                if xCtrl != 0.0 || yCtrl != 0.0 {
+                    if !ControlModule::check_button_on(agent.module_accessor, *CONTROL_PAD_BUTTON_JUMP) && nairboosts[entry_id] > 0 { 
+                        nairboosts[entry_id] = nairboosts[entry_id] - 1;
+                        if yCtrl <= 0.66 {
+                            yCtrl = 0.66;
+                        }
+                        if xCtrl > 0.66 {
+                            xCtrl = 0.66;
+                        }
+                        if PostureModule::lr(agent.module_accessor) == 1.0 {
+                            KineticModule::add_speed(agent.module_accessor, &Vector3f{ x: xCtrl * 1.1, y: yCtrl * 2.5, z: 0.0 });
+                        } else {
+                            KineticModule::add_speed(agent.module_accessor, &Vector3f{ x: xCtrl * -1.1, y: yCtrl * 2.5, z: 0.0 });
+                        }
                     }
                 }
+                macros::ATTACK(agent, 0, 0, Hash40::new("handr"), 8.0, 90, 80, 0, 20, 4.2, 0.0, 0.0, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_magic"), *ATTACK_SOUND_LEVEL_M, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_PSI);
+                macros::ATTACK(agent, 1, 0, Hash40::new("handl"), 8.0, 90, 80, 0, 20, 4.2, 0.0, 0.0, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_magic"), *ATTACK_SOUND_LEVEL_M, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_PSI);
+                macros::ATTACK(agent, 2, 0, Hash40::new("hip"), 6.0, 90, 80, 0, 20, 5.4, 0.0, 0.0, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_magic"), *ATTACK_SOUND_LEVEL_M, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_PSI);
             }
-            macros::ATTACK(agent, 0, 0, Hash40::new("handr"), 8.0, 90, 80, 0, 20, 4.2, 0.0, 0.0, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_magic"), *ATTACK_SOUND_LEVEL_M, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_PSI);
-            macros::ATTACK(agent, 1, 0, Hash40::new("handl"), 8.0, 90, 80, 0, 20, 4.2, 0.0, 0.0, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_magic"), *ATTACK_SOUND_LEVEL_M, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_PSI);
-            macros::ATTACK(agent, 2, 0, Hash40::new("hip"), 6.0, 90, 80, 0, 20, 5.4, 0.0, 0.0, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_magic"), *ATTACK_SOUND_LEVEL_M, *COLLISION_SOUND_ATTR_MAGIC, *ATTACK_REGION_PSI);
         }
         wait(agent.lua_state_agent, 3.0);
         macros::FT_MOTION_RATE(agent, 1.0);
