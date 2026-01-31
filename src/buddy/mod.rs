@@ -17,7 +17,7 @@ unsafe extern "C" fn buddy_game_specialhi(agent: &mut L2CAgentBase) {
         ArticleModule::shoot_exist(boma, *FIGHTER_BUDDY_GENERATE_ARTICLE_PAD, smash::app::ArticleOperationTarget(*ARTICLE_OPE_TARGET_ALL), false);
     }
     frame(lua_state, 5.0);
-    macros::FT_MOTION_RATE(agent, 0.1);
+    macros::FT_MOTION_RATE(agent, 0.2);
     if macros::is_excute(agent) {
         WorkModule::on_flag(boma, *FIGHTER_BUDDY_STATUS_SPECIAL_HI_FLAG_RESET_CONTROL);
         KineticModule::change_kinetic(boma, *FIGHTER_KINETIC_TYPE_FALL);
