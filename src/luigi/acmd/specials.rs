@@ -15,7 +15,7 @@ unsafe extern "C" fn mrl_game_specials(agent: &mut L2CAgentBase) {
             //KineticModule::change_kinetic(boma, *FIGHTER_KINETIC_TYPE_LUIGI_SPECIAL_S_RAM);
             KineticModule::change_kinetic(boma, *FIGHTER_KINETIC_TYPE_LUIGI_SPECIAL_AIR_S); // new
             let charge = 1.0 + WorkModule::get_float(agent.module_accessor, *FIGHTER_LUIGI_STATUS_SPECIAL_S_RAM_FLOAT_CHARGE) / 100.0;
-            macros::SET_SPEED_EX(agent, 0.9 * charge, 1.55 * charge, *KINETIC_ENERGY_RESERVE_ATTRIBUTE_MAIN);
+            macros::SET_SPEED_EX(agent, 0.7 * charge, 1.4 * charge, *KINETIC_ENERGY_RESERVE_ATTRIBUTE_MAIN);
         }
         frame(lua_state, 5.0);
         if macros::is_excute(agent) {

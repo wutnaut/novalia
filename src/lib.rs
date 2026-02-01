@@ -136,19 +136,19 @@ pub unsafe fn float_param_accessor_hook(boma: u64, param_type: u64, param_hash: 
                 } else if param_type == hash40("weight") {
                     return 76.0; //77.0
                 } else if param_type == hash40("run_speed_max") {
-                    return 1.9; //2.402
+                    return 1.85; //2.402
                 } else if param_type == hash40("run_accel_mul") {
-                    return 0.1; //0.12221
+                    return 0.95; //0.12221
                 } else if param_type == hash40("run_accel_add") {
-                    return 0.04; //0.044
+                    return 0.035; //0.044
                 } else if param_type == hash40("jump_speed_x") {
-                    return 2.0; //0.68
+                    return 1.0; //0.68
                 } else if param_type == hash40("jump_speed_x_mul") {
                     return 2.0; //0.83
                 } else if param_type == hash40("jump_speed_x_max") {
                     return 3.0; //1.7
                 } else if param_type == hash40("jump_aerial_speed_x_mul") {
-                    return 1.0; //0.8
+                    return 2.0; //0.8
                 } else if param_type == hash40("jump_initial_y") {
                     return 14.964; //19.25
                 } else if param_type == hash40("jump_y") {

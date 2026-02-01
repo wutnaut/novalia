@@ -166,66 +166,164 @@ unsafe extern "C" fn slippy_game_attackairf(agent: &mut L2CAgentBase) {
     }
 }
 
-unsafe extern "C" fn effect_attackairf(agent: &mut L2CAgentBase) {
+unsafe extern "C" fn slippy_effect_attackairf(agent: &mut L2CAgentBase) {
     let lua_state = agent.lua_state_agent;
     let boma = agent.module_accessor;
-    frame(lua_state, 7.0);
-    if macros::is_excute(agent) {
-        macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 0, 6.5, 3, 0, 15, 220, 0.9, true);
-        macros::LAST_EFFECT_SET_RATE(agent, 1.5);
-        macros::EFFECT_FOLLOW(agent, Hash40::new("sys_spin_wind"), Hash40::new("top"), 0, 6.5, 2, 0, 115, 220, 0.8, true);
-        macros::LAST_EFFECT_SET_ALPHA(agent, 0.5);
-        macros::LAST_EFFECT_SET_RATE(agent, 1.2);
-    }
-    frame(lua_state, 11.0);
-    if macros::is_excute(agent) {
-        macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 0, 7.7, 3.5, 8, 25, 195, 0.9, true);
-        macros::LAST_EFFECT_SET_RATE(agent, 1.5);
-        macros::EFFECT_FOLLOW(agent, Hash40::new("sys_spin_wind"), Hash40::new("top"), 0, 7.7, 2, 8, 125, 195, 0.8, true);
-        macros::LAST_EFFECT_SET_ALPHA(agent, 0.6);
-        macros::LAST_EFFECT_SET_RATE(agent, 1.2);
-    }
-    frame(lua_state, 14.0);
-    if macros::is_excute(agent) {
-        macros::EFFECT_OFF_KIND(agent, Hash40::new("sys_attack_arc_b"), true, true);
-    }
-    frame(lua_state, 16.0);
-    if macros::is_excute(agent) {
-        macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 0, 7.5, 3.5, 5, 20, 205, 0.9, true);
-        macros::LAST_EFFECT_SET_RATE(agent, 1.5);
-        macros::EFFECT_FOLLOW(agent, Hash40::new("sys_spin_wind"), Hash40::new("top"), 0, 7.5, 2, 5, 120, 205, 0.8, true);
-        macros::LAST_EFFECT_SET_ALPHA(agent, 0.7);
-        macros::LAST_EFFECT_SET_RATE(agent, 1.2);
-    }
-    frame(lua_state, 19.0);
-    if macros::is_excute(agent) {
-        macros::EFFECT_OFF_KIND(agent, Hash40::new("sys_attack_arc_b"), true, true);
-    }
-    frame(lua_state, 21.0);
-    if macros::is_excute(agent) {
-        macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 0, 6.5, 3.5, 13, 25, 205, 0.9, true);
-        macros::LAST_EFFECT_SET_RATE(agent, 1.5);
-        macros::EFFECT_FOLLOW(agent, Hash40::new("sys_spin_wind"), Hash40::new("top"), 0, 6.5, 2, 13, 115, 205, 0.8, true);
-        macros::LAST_EFFECT_SET_ALPHA(agent, 0.3);
-        macros::LAST_EFFECT_SET_RATE(agent, 1.2);
-    }
-    frame(lua_state, 24.0);
-    if macros::is_excute(agent) {
-        macros::EFFECT_OFF_KIND(agent, Hash40::new("sys_attack_arc_b"), true, true);
-    }
-    frame(lua_state, 27.0);
-    if macros::is_excute(agent) {
-        macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 0, 7.5, 2, 23, 7, 200, 1.2, true);
-    }
-    frame(lua_state, 32.0);
-    if macros::is_excute(agent) {
-        macros::EFFECT_OFF_KIND(agent, Hash40::new("sys_attack_arc_b"), true, true);
+    let color = WorkModule::get_int(agent.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
+    if color == 7 {
+        frame(lua_state, 7.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 0, 6.5, 3, 0, 15, 220, 0.9, true);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.5);
+            macros::LAST_EFFECT_SET_COLOR(agent, 0.0, 1.0, 0.0);
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_spin_wind"), Hash40::new("top"), 0, 6.5, 2, 0, 115, 220, 0.8, true);
+            macros::LAST_EFFECT_SET_ALPHA(agent, 0.5);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.2);
+        }
+        frame(lua_state, 11.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 0, 7.7, 3.5, 8, 25, 195, 0.9, true);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.5);
+            macros::LAST_EFFECT_SET_COLOR(agent, 0.0, 1.0, 0.0);
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_spin_wind"), Hash40::new("top"), 0, 7.7, 2, 8, 125, 195, 0.8, true);
+            macros::LAST_EFFECT_SET_ALPHA(agent, 0.6);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.2);
+        }
+        frame(lua_state, 14.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_OFF_KIND(agent, Hash40::new("sys_attack_arc_b"), true, true);
+        }
+        frame(lua_state, 16.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 0, 7.5, 3.5, 5, 20, 205, 0.9, true);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.5);
+            macros::LAST_EFFECT_SET_COLOR(agent, 0.0, 1.0, 0.0);
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_spin_wind"), Hash40::new("top"), 0, 7.5, 2, 5, 120, 205, 0.8, true);
+            macros::LAST_EFFECT_SET_ALPHA(agent, 0.7);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.2);
+        }
+        frame(lua_state, 19.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_OFF_KIND(agent, Hash40::new("sys_attack_arc_b"), true, true);
+        }
+        frame(lua_state, 21.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 0, 6.5, 3.5, 13, 25, 205, 0.9, true);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.5);
+            macros::LAST_EFFECT_SET_COLOR(agent, 0.0, 1.0, 0.0);
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_spin_wind"), Hash40::new("top"), 0, 6.5, 2, 13, 115, 205, 0.8, true);
+            macros::LAST_EFFECT_SET_ALPHA(agent, 0.3);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.2);
+        }
+        frame(lua_state, 24.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_OFF_KIND(agent, Hash40::new("sys_attack_arc_b"), true, true);
+        }
+        frame(lua_state, 27.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 0, 7.5, 2, 23, 7, 200, 1.2, true);
+            macros::LAST_EFFECT_SET_COLOR(agent, 0.0, 1.0, 0.0);
+        }
+        frame(lua_state, 32.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_OFF_KIND(agent, Hash40::new("sys_attack_arc_b"), true, true);
+        }
+    } else {
+        frame(lua_state, 7.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 0, 6.5, 3, 0, 15, 220, 0.9, true);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.5);
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_spin_wind"), Hash40::new("top"), 0, 6.5, 2, 0, 115, 220, 0.8, true);
+            macros::LAST_EFFECT_SET_ALPHA(agent, 0.5);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.2);
+        }
+        frame(lua_state, 11.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 0, 7.7, 3.5, 8, 25, 195, 0.9, true);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.5);
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_spin_wind"), Hash40::new("top"), 0, 7.7, 2, 8, 125, 195, 0.8, true);
+            macros::LAST_EFFECT_SET_ALPHA(agent, 0.6);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.2);
+        }
+        frame(lua_state, 14.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_OFF_KIND(agent, Hash40::new("sys_attack_arc_b"), true, true);
+        }
+        frame(lua_state, 16.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 0, 7.5, 3.5, 5, 20, 205, 0.9, true);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.5);
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_spin_wind"), Hash40::new("top"), 0, 7.5, 2, 5, 120, 205, 0.8, true);
+            macros::LAST_EFFECT_SET_ALPHA(agent, 0.7);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.2);
+        }
+        frame(lua_state, 19.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_OFF_KIND(agent, Hash40::new("sys_attack_arc_b"), true, true);
+        }
+        frame(lua_state, 21.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 0, 6.5, 3.5, 13, 25, 205, 0.9, true);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.5);
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_spin_wind"), Hash40::new("top"), 0, 6.5, 2, 13, 115, 205, 0.8, true);
+            macros::LAST_EFFECT_SET_ALPHA(agent, 0.3);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.2);
+        }
+        frame(lua_state, 24.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_OFF_KIND(agent, Hash40::new("sys_attack_arc_b"), true, true);
+        }
+        frame(lua_state, 27.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_b"), Hash40::new("top"), 0, 7.5, 2, 23, 7, 200, 1.2, true);
+        }
+        frame(lua_state, 32.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_OFF_KIND(agent, Hash40::new("sys_attack_arc_b"), true, true);
+        }
     }
 }
 
 // BACK AERIAL
 
 // UP AERIAL
+unsafe extern "C" fn slippy_effect_attackairhi(agent: &mut L2CAgentBase) {
+    let lua_state = agent.lua_state_agent;
+    let boma = agent.module_accessor;
+    let color = WorkModule::get_int(agent.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
+    if color == 7 {
+        frame(agent.lua_state_agent, 8.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("fox_tail_attack_01"), Hash40::new("top"), 0, 13.3, -0.5, 100, -30, 150, 0.9, true);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.3);
+        }
+        frame(agent.lua_state_agent, 10.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_OFF_KIND(agent, Hash40::new("fox_tail_attack_01"), false, false);
+        }
+        frame(agent.lua_state_agent, 10.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_d"), Hash40::new("top"), -3, 13, 0, 100, -30, 150, 0.8, true);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.5);
+            macros::LAST_EFFECT_SET_COLOR(agent, 0.0, 1.0, 0.0);
+        }
+    } else {
+        frame(agent.lua_state_agent, 8.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("fox_tail_attack_01"), Hash40::new("top"), 0, 13.3, -0.5, 100, -30, 150, 0.9, true);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.3);
+        }
+        frame(agent.lua_state_agent, 10.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_OFF_KIND(agent, Hash40::new("fox_tail_attack_01"), false, false);
+        }
+        frame(agent.lua_state_agent, 10.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_attack_arc_d"), Hash40::new("top"), -3, 13, 0, 100, -30, 150, 0.8, true);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.5);
+        }
+    }
+}
 
 // DOWN AERIAL
 unsafe extern "C" fn slippy_game_attackairlw(agent: &mut L2CAgentBase) {
@@ -257,6 +355,16 @@ unsafe extern "C" fn slippy_game_attackairlw(agent: &mut L2CAgentBase) {
             WorkModule::off_flag(boma, *FIGHTER_STATUS_WORK_ID_FLAG_RESERVE_GRAVITY_STABLE_UNABLE);
             macros::SET_SPEED_EX(agent, 1.2, 2.4, *KINETIC_ENERGY_RESERVE_ATTRIBUTE_MAIN);
             WorkModule::on_flag(boma, *FIGHTER_STATUS_ATTACK_AIR_FLAG_ENABLE_LANDING);
+        } else {
+            wait(agent.lua_state_agent, 2.0);
+            if AttackModule::is_infliction_status(boma, *COLLISION_KIND_MASK_HIT | *COLLISION_KIND_MASK_SHIELD) {
+                //let speed_x = sv_kinetic_energy::get_speed_x(lua_state);
+                KineticModule::resume_energy(boma, *FIGHTER_KINETIC_ENERGY_ID_CONTROL);
+                WorkModule::off_flag(boma, *FIGHTER_STATUS_ATTACK_AIR_FLAG_ENABLE_LANDING);
+                WorkModule::off_flag(boma, *FIGHTER_STATUS_WORK_ID_FLAG_RESERVE_GRAVITY_STABLE_UNABLE);
+                macros::SET_SPEED_EX(agent, 1.2, 2.4, *KINETIC_ENERGY_RESERVE_ATTRIBUTE_MAIN);
+                WorkModule::on_flag(boma, *FIGHTER_STATUS_ATTACK_AIR_FLAG_ENABLE_LANDING);
+            }
         }
         if macros::is_excute(agent) {
             AttackModule::clear_all(agent.module_accessor);
@@ -349,12 +457,18 @@ unsafe extern "C" fn slippy_game_attackairlw(agent: &mut L2CAgentBase) {
 unsafe extern "C" fn slippy_effect_attackairlw(agent: &mut L2CAgentBase) {
     let color = WorkModule::get_int(agent.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
     if color == 7 {
-        frame(agent.lua_state_agent, 14.0);
+        frame(agent.lua_state_agent, 3.0);
         if macros::is_excute(agent) {
-            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_hit_normal_s"), Hash40::new("top"), -5, 0, -4, 80, 0, 20, 0.3, true);
-            macros::LAST_EFFECT_SET_COLOR(agent, 0.0, 0.8, 0.0);
-            macros::EFFECT_FOLLOW(agent, Hash40::new("sys_hit_normal_s"), Hash40::new("top"), -5, 1, 3.5, 100, 0, 20, 0.3, true);
-            macros::LAST_EFFECT_SET_COLOR(agent, 0.0, 0.8, 0.0);
+            macros::EFFECT(agent, Hash40::new("sys_smash_flash"), Hash40::new("top"), -1, 1, 0, 0, 0, 0, 0.6, 0, 0, 0, 0, 0, 0, true);
+        }
+        frame(agent.lua_state_agent, 16.0);
+        if macros::is_excute(agent) {
+            macros::EFFECT_FOLLOW(agent, Hash40::new("gekkouga_water_impact_air"), Hash40::new("top"), -5, 0, -4, 80, 0, 20, 0.5, true);
+            //macros::LAST_EFFECT_SET_COLOR(agent, 0.0, 0.8, 0.0);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.5);
+            macros::EFFECT_FOLLOW(agent, Hash40::new("gekkouga_water_impact_air"), Hash40::new("top"), -5, 1, 3.5, 100, 0, 20, 0.5, true);
+            //macros::LAST_EFFECT_SET_COLOR(agent, 0.0, 0.8, 0.0);
+            macros::LAST_EFFECT_SET_RATE(agent, 1.5);
             }
     } else {
         frame(agent.lua_state_agent, 4.0);
@@ -384,6 +498,8 @@ pub fn install() {
         .game_acmd("game_attackairf", slippy_game_attackairf, Default)
         .game_acmd("game_attackairlw", slippy_game_attackairlw, Default)
         .effect_acmd("effect_attackairlw", slippy_effect_attackairlw, Default)
+        .effect_acmd("effect_attackairf", slippy_effect_attackairf, Default)
+        .effect_acmd("effect_attackairhi", slippy_effect_attackairhi, Default)
         //.effect_acmd("effect_attackairf", effect_attackairf, Default)
 		//.game_acmd("game_attackairb", game_attackairb, Default)
         //.effect_acmd("effect_attackairb", effect_attackairb, Default)
