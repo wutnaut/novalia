@@ -57,6 +57,8 @@ mod wolf;
 mod rosetta;
 mod fox;
 mod koopa;
+mod reflet;
+mod falco;
 
 
 static mut INT_OFFSET : usize = 0x4e53a0;
@@ -69,10 +71,10 @@ pub unsafe fn int_param_accessor_hook(boma: u64, param_type: u64, param_hash: u6
     let fighter_kind = smash::app::utility::get_kind(module_accessor);
     let color = WorkModule::get_int(module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
     if param_hash == 0 {
-        if fighter_kind == FIGHTER_KIND_NESS {
-            if color == 6 || color == 7 {
+        if fighter_kind == FIGHTER_KIND_FALCO {
+            if color == 7 {
                 if param_type == hash40("jump_count_max") {
-                    return 2; //2
+                    return 3; //2
                 } 
             } 
         }
@@ -138,17 +140,17 @@ pub unsafe fn float_param_accessor_hook(boma: u64, param_type: u64, param_hash: 
                 } else if param_type == hash40("run_speed_max") {
                     return 1.85; //2.402
                 } else if param_type == hash40("run_accel_mul") {
-                    return 0.95; //0.12221
+                    return 0.095; //0.12221
                 } else if param_type == hash40("run_accel_add") {
                     return 0.035; //0.044
                 } else if param_type == hash40("jump_speed_x") {
                     return 1.0; //0.68
                 } else if param_type == hash40("jump_speed_x_mul") {
-                    return 2.0; //0.83
+                    return 1.6; //0.83
                 } else if param_type == hash40("jump_speed_x_max") {
-                    return 3.0; //1.7
+                    return 2.5; //1.7
                 } else if param_type == hash40("jump_aerial_speed_x_mul") {
-                    return 2.0; //0.8
+                    return 1.8; //0.8
                 } else if param_type == hash40("jump_initial_y") {
                     return 14.964; //19.25
                 } else if param_type == hash40("jump_y") {
@@ -171,7 +173,7 @@ pub unsafe fn float_param_accessor_hook(boma: u64, param_type: u64, param_hash: 
                     return 1.5; //1.11
                 }
             }
-        } else if fighter_kind == FIGHTER_KIND_KOOPA {
+        } /* else if fighter_kind == FIGHTER_KIND_KOOPA {
             if color == 4 || color == 5 || color == 6  || color == 7 {
                 if param_type == hash40("dash_speed") {
                     return 2.09; //2.09
@@ -212,8 +214,50 @@ pub unsafe fn float_param_accessor_hook(boma: u64, param_type: u64, param_hash: 
                 } else if param_type == hash40("air_speed_x_stable") {
                     return 1.11; //1.11
                 }
+            } 
+        } */
+       } else if fighter_kind == FIGHTER_KIND_FOX {
+            if color == 7 {
+                if param_type == hash40("dash_speed") {
+                    return 1.9; //2.09
+                } else if param_type == hash40("weight") {
+                    return 76.0; //77.0
+                } else if param_type == hash40("run_speed_max") {
+                    return 1.85; //2.402
+                } else if param_type == hash40("run_accel_mul") {
+                    return 0.095; //0.12221
+                } else if param_type == hash40("run_accel_add") {
+                    return 0.035; //0.044
+                } else if param_type == hash40("jump_speed_x") {
+                    return 1.0; //0.68
+                } else if param_type == hash40("jump_speed_x_mul") {
+                    return 1.6; //0.83
+                } else if param_type == hash40("jump_speed_x_max") {
+                    return 2.5; //1.7
+                } else if param_type == hash40("jump_aerial_speed_x_mul") {
+                    return 1.8; //0.8
+                } else if param_type == hash40("jump_initial_y") {
+                    return 14.964; //19.25
+                } else if param_type == hash40("jump_y") {
+                    return 18.0; //35
+                } else if param_type == hash40("mini_jump_y") {
+                    return 11.65; //16.4
+                } else if param_type == hash40("jump_aerial_y") {
+                    return 20.0; //37
+                } else if param_type == hash40("air_accel_y") {
+                    return 0.1; //0.23
+                } else if param_type == hash40("air_speed_y_stable") {
+                    return 1.8; //2.1
+                } else if param_type == hash40("air_accel_x_mul") {
+                    return 0.05; //0.08
+                } else if param_type == hash40("air_accel_x_add") {
+                    return 0.01; //0.01
+                } else if param_type == hash40("air_brake_x") {
+                    return 0.015; //0.015
+                } else if param_type == hash40("air_speed_x_stable") {
+                    return 1.5; //1.11
+                }
             }
-        }
     }
     ret
 }
@@ -266,6 +310,8 @@ unsafe {
 	rosetta::install();
     fox::install();
     koopa::install();
+    reflet::install();
+    falco::install();
 
 	unsafe {
         FIGHTER_NESS_GENERATE_ARTICLE_SHADOWBALL += smashline::clone_weapon("mario", *smash::lib::lua_const::WEAPON_KIND_MARIO_FIREBALL, "ness", "shadowball", false);

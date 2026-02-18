@@ -121,6 +121,7 @@ unsafe extern "C" fn skullkid_game_attackdash(agent: &mut L2CAgentBase) {
         frame(lua_state, 4.0);
         if macros::is_excute(agent) {
             ArticleModule::generate_article(agent.module_accessor, FIGHTER_NESS_GENERATE_ARTICLE_SHADOWBALLDASH, false, -1);
+            //CancelModule::enable_cancel(agent.module_accessor);
         }
         frame(lua_state, 6.0);
         if macros::is_excute(agent) {

@@ -9,16 +9,35 @@ unsafe extern "C" fn skullkid_game_specials(agent: &mut L2CAgentBase) {
     let boma = agent.module_accessor;
     let color = WorkModule::get_int(agent.module_accessor, *FIGHTER_INSTANCE_WORK_ID_INT_COLOR);
     if color == 6 || color == 7 {
-        frame(agent.lua_state_agent, 1.0);
-        macros::FT_MOTION_RATE(agent, 0.85);
-        frame(agent.lua_state_agent, 20.0);
-        macros::FT_MOTION_RATE(agent, 1.0);
-        frame(agent.lua_state_agent, 21.0);
-        if macros::is_excute(agent) {
-            ArticleModule::generate_article(agent.module_accessor, FIGHTER_NESS_GENERATE_ARTICLE_SHADOWBALL, false, -1);
-            WorkModule::on_flag(agent.module_accessor, *FIGHTER_NESS_STATUS_SPECIAL_S_FLAG_SHOOT);
+        if ArticleModule::is_exist(agent.module_accessor, FIGHTER_NESS_GENERATE_ARTICLE_SHADOWBALL) || ArticleModule::is_exist(agent.module_accessor, FIGHTER_NESS_GENERATE_ARTICLE_SHADOWBALLDASH) {
+            frame(agent.lua_state_agent, 1.0);
+            if macros::is_excute(agent) {
+                let article = ArticleModule::get_article(boma, FIGHTER_NESS_GENERATE_ARTICLE_SHADOWBALL);
+                let article_id = lua_bind::Article::get_battle_object_id(article) as u32;
+                let article_boma = sv_battle_object::module_accessor(article_id);
+                //let article_pos = sv_battle_object::pos(article);
+                let article_frame = MotionModule::frame(article_boma);
+
+                if article_frame < 30.0 {
+                    KineticModule::add_speed(boma, &Vector3f { x: 1.5, y: 0.0, z: 0.0 });
+                } else if article_frame >= 30.0 && article_frame < 60.0 {
+                    macros::SET_SPEED_EX(agent, 5, 3, *KINETIC_ENERGY_RESERVE_ATTRIBUTE_MAIN);
+                } else {
+                    macros::SET_SPEED_EX(agent, 6, 6, *KINETIC_ENERGY_RESERVE_ATTRIBUTE_MAIN);
+                }                
+            }
+        } else {
+            frame(agent.lua_state_agent, 1.0);
+            macros::FT_MOTION_RATE(agent, 0.85);
+            frame(agent.lua_state_agent, 20.0);
+            macros::FT_MOTION_RATE(agent, 1.0);
+            frame(agent.lua_state_agent, 21.0);
+            if macros::is_excute(agent) {
+                ArticleModule::generate_article(agent.module_accessor, FIGHTER_NESS_GENERATE_ARTICLE_SHADOWBALL, false, -1);
+                WorkModule::on_flag(agent.module_accessor, *FIGHTER_NESS_STATUS_SPECIAL_S_FLAG_SHOOT);
+            }
+            macros::FT_MOTION_RATE(agent, 1.0);
         }
-        macros::FT_MOTION_RATE(agent, 1.0);
     } else {
         frame(agent.lua_state_agent, 1.0);
         macros::FT_MOTION_RATE(agent, 0.85);

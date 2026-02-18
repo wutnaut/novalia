@@ -189,6 +189,5 @@ pub fn install() {
         //.status(Exit, *FIGHTER_STATUS_KIND_ATTACK_AIR, empty_status)
         //.status(Exit, *FIGHTER_STATUS_KIND_ATTACK_AIR, skullkid_attackair_exit)
 
-
         .install();
 }

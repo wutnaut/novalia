@@ -1,9 +1,9 @@
 use super::*;
 
 //mod specials;
-mod specialhi;
+//mod specialhi;
 
 pub fn install() {
     //specials::install();
-    specialhi::install();
+    //specialhi::install();
 }
